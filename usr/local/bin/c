@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Function to compile and run C++ programs
+compile_and_run_cpp() {
+    g++ -o "${1%.*}" "$1" && "./${1%.*}"
+}
+
+# Function to run Python scripts
+run_python() {
+    python "$1"
+}
+
+# Function to run Java programs
+run_java() {
+    javac "$1" && java "${1%.*}"
+}
+
+# Function to run JavaScript files using Node.js
+run_javascript() {
+    node "$1"
+}
+
+# Function to run Ruby scripts
+run_ruby() {
+    ruby "$1"
+}
+
+# Main script
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <source_file>"
+    exit 1
+fi
+
+source_file="$1"
+file_extension="${source_file##*.}"
+
+case $file_extension in
+    cpp)
+        compile_and_run_cpp "$source_file"
+        ;;
+    py)
+        run_python "$source_file"
+        ;;
+    java)
+        run_java "$source_file"
+        ;;
+    js)
+        run_javascript "$source_file"
+        ;;
+    rb)
+        run_ruby "$source_file"
+        ;;
+    *)
+        echo "Unsupported file extension: $file_extension"
+        exit 1
+        ;;
+esac
+
