@@ -2,7 +2,9 @@
 
 # Function to compile and run C++ programs
 compile_and_run_cpp() {
-    g++ -o "${1%.*}" "$1" && "./${1%.*}"
+    binary_name="${1%.*}"  # Extracting the binary name without extension
+    g++ -o "$binary_name" "$1" && ./"$binary_name"
+    rm -f "$binary_name"   # Remove the compiled binary after running
 }
 
 # Function to run Python scripts
@@ -12,7 +14,8 @@ run_python() {
 
 # Function to run Java programs
 run_java() {
-    javac "$1" && java "${1%.*}"
+    binary_name="${1%.*}"  # Extracting the binary name without extension
+    javac "$1" && java "$binary_name"
 }
 
 # Function to run JavaScript files using Node.js
@@ -36,7 +39,7 @@ source_file="$1"
 file_extension="${source_file##*.}"
 
 case $file_extension in
-    cpp)
+    cpp | c)
         compile_and_run_cpp "$source_file"
         ;;
     py)
