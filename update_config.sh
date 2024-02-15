@@ -4,7 +4,7 @@ dotfiles_dir="$(pwd)"
 config_dir="/usr/local/bin/"
 
 # List of directories to copy from ~/.config
-config_files=("c")
+config_files=("code-runner")
 
 
 for file in "${config_files[@]}"; do
